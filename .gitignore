@@ -51,3 +51,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+!func1.c
+!optimize.h
+!optimize.c
+!Makefile
+!main.c

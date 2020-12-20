@@ -56,4 +56,7 @@ dkms.conf
 !optimize.h
 !optimize.c
 !Makefile
-!main.c
+!mtfuji.c
+!func1.h
+!initial.h
+!initial.c

@@ -19,9 +19,6 @@ int main(const int argc, const char **argv)
 
     printf("Before :\n");
     print_sample_set(data);
-    qsort(data->sample, data->number, sizeof(Sample), comp_alt);
-    printf("After :\n");
-    print_sample_set(data);
 
     double *x = malloc(dim * sizeof(double));
     for (int i = 0; i < dim; i++)
@@ -35,6 +32,14 @@ int main(const int argc, const char **argv)
     printf("the altitude of mountain fuji ：%3.3lf km\n", mtfuji_alt);
     printf("the temperature of mountain fuji : %3.3lf celsius\n", mtfuji_temp);
 
+    SampleSet *data_set_mtfj = add_sample(data, "Fujiyama", mtfuji_alt, mtfuji_temp);
+    free_sample_set(data);
+
+    qsort(data_set_mtfj->sample, data_set_mtfj->number, sizeof(Sample), comp_alt);
+    printf("After :\n");
+    print_sample_set(data_set_mtfj);
+
     free(x);
+    free_sample_set(data_set_mtfj);
     return 0;
 }

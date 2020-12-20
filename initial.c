@@ -56,3 +56,34 @@ SampleSet *load_sample_set(const char *filename)
 
     return data;
 }
+
+void free_sample_set(SampleSet *data)
+{
+    for (int i=0; i<data->number; ++i)
+        free(data->sample[i].loc);
+    free(data->sample);
+    free(data);
+}
+
+SampleSet *add_sample(SampleSet *data, char *loc, double alt, double temp)
+{
+    SampleSet *data_set_new = (SampleSet *)malloc(sizeof(SampleSet));
+    data_set_new->number = data->number + 1;
+
+    Sample *data_new = (Sample *)malloc(sizeof(Sample) * (data_set_new->number + 1));
+    for (int i=0; i<data->number; ++i)
+    {
+        data_new[i].loc = (char *)malloc(sizeof(char) * strlen(data->sample[i].loc));
+        strcpy(data_new[i].loc, data->sample[i].loc);
+        data_new[i].alt = data->sample[i].alt;
+        data_new[i].temp = data->sample[i].temp;
+    }
+
+    data_new[data_set_new->number-1] = (Sample){.loc = NULL, .alt = alt, .temp = temp};
+    data_new[data_set_new->number-1].loc = (char *)malloc(sizeof(char) * strlen(loc));
+    strcpy(data_new[data_set_new->number-1].loc, loc);
+
+    data_set_new->sample = data_new;
+
+    return data_set_new;
+}
